@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.diligrp.etrade.shared"/>
+
+    <!-- 基础服务 -->
+    <bean id="redisSystemService" class="com.diligrp.etrade.shared.redis.RedisSystemServiceImpl">
+        <property name="dataSource" ref="jedisDataSource"/>
+    </bean>
+
+    <bean id="distributedLocker" class="com.diligrp.etrade.shared.redis.RedisDistributedLock">
+        <property name="dataSource" ref="jedisDataSource"/>
+    </bean>
+
+    <bean id="jedisDataSource" class="com.diligrp.etrade.oauth.session.SimpleJedisDataSource" destroy-method="close">
+        <property name="redisHost" value="${redis.host}"/>
+        <property name="redisPort" value="${redis.port}"/>
+        <property name="blockWhenExhausted" value="${redis.blockWhenExhausted}"/>
+        <property name="lifo" value="${redis.lifo}"/>
+        <property name="minIdle" value="${redis.minIdle}"/>
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <property name="testOnReturn" value="${redis.testOnReturn}"/>
+        <property name="testWhileIdle" value="${redis.testWhileIdle}"/>
+        <property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.diligrp.etrade.shared.dao"/>
+        <property name="markerInterface" value="com.diligrp.etrade.shared.mybatis.MybatisMapperSupport"/>
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
+    </bean>
+
+    <import resource="classpath:com/diligrp/etrade/shared/conf/mybatis.xml"/>
+</beans>

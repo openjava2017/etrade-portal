@@ -1,0 +1,10 @@
+group = 'com.diligrp'
+archivesBaseName = 'etrade-user'
+
+dependencies {
+    compile group: 'org.springframework', name: 'spring-web', version: springVersion
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
+
+    compile project(':etrade-shared')
+}

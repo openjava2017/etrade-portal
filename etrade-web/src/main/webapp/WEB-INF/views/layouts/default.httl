@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+<head lang="zh_cn">
+    <title>地利集团电子交易结算柜员系统</title>
+    <script type="text/javascript">
+        var contextPath = "${contextPath}";
+    </script>
+    ${include("../template/styles.httl")}
+    ${include("../template/scripts.httl")}
+</head>
+<body>
+<div id="content">
+    ${main}
+</div>
+</body>
+</html>

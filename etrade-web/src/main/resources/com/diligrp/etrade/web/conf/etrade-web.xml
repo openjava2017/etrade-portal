@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Application environment setting, please never change the name -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:com/diligrp/etrade/shared/conf/etrade-shared.properties</value>
+                <value>classpath:com/diligrp/etrade/user/conf/etrade-user.properties</value>
+                <value>classpath:com/diligrp/etrade/web/conf/etrade-web.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!-- Distributed Session Support Start -->
+
+    <bean id="timeoutSessionFilter" class="com.diligrp.etrade.oauth.session.UserSessionTimeoutFilter">
+        <property name="redirectUrl" value="/"/>
+    </bean>
+
+    <bean id="distributedSessionFilter" class="com.diligrp.etrade.oauth.session.DistributedSessionFilter">
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+
+    <bean id="sessionManager" class="com.diligrp.etrade.oauth.session.DistributedSessionManager">
+        <property name="sessionRepository" ref="sessionRepository"/>
+        <property name="maxInactiveInterval" value="${etrade.session.maxInactiveInterval}"/>
+        <property name="ssoEnabled" value="false"/>
+    </bean>
+
+    <bean id="sessionRepository" class="com.diligrp.etrade.oauth.session.RedisSessionRepository">
+        <property name="dataSource" ref="jedisDataSource"/>
+    </bean>
+
+    <!-- Distributed Session Support End -->
+
+    <import resource="classpath:com/diligrp/etrade/shared/conf/etrade-shared.xml"/>
+    <import resource="classpath:com/diligrp/etrade/user/conf/etrade-user.xml"/>
+</beans>
