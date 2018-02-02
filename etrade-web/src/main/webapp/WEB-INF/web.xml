@@ -89,6 +89,11 @@
         <url-pattern>*.page</url-pattern>
     </filter-mapping>
 
+    <filter-mapping>
+        <filter-name>distributedSessionFilter</filter-name>
+        <url-pattern>*.auth</url-pattern>
+    </filter-mapping>
+
     <filter>
         <filter-name>timeoutSessionFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

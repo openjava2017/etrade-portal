@@ -13,5 +13,8 @@
 
     <typeHandlers>
         <typeHandler handler="com.diligrp.etrade.shared.mybatis.GenericEnumTypeHandler" javaType="com.diligrp.etrade.shared.type.Gender"/>
+        <typeHandler handler="com.diligrp.etrade.shared.mybatis.GenericEnumTypeHandler" javaType="com.diligrp.etrade.user.type.Position"/>
+        <typeHandler handler="com.diligrp.etrade.shared.mybatis.GenericEnumTypeHandler" javaType="com.diligrp.etrade.user.type.Role"/>
+        <typeHandler handler="com.diligrp.etrade.shared.mybatis.GenericEnumTypeHandler" javaType="com.diligrp.etrade.user.type.UserStatus"/>
     </typeHandlers>
 </configuration>

@@ -37,7 +37,7 @@ public enum Role implements IEnumType {
         this.code = code;
     }
 
-    public static Role getEmployeeType(int code) {
+    public static Role getRoleType(int code) {
         Optional<Role> result = ROLES.filter(role -> role.getCode() == code).findFirst();
         return result.isPresent() ? result.get() : null;
     }

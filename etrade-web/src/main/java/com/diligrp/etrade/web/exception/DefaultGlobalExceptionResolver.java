@@ -28,7 +28,7 @@ public class DefaultGlobalExceptionResolver extends HttlLayoutViewSupport implem
 
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        LOG.error("系统未知异常", ex);
+        LOG.error("System unknown exception", ex);
         if (AjaxHttpUtils.isAjaxRequest(request)) {
             Message<Void> message = new MessageBuilder<Void>().failure(ex).build();
             AjaxHttpUtils.sendResponse(response, message);

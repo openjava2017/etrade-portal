@@ -51,17 +51,18 @@ public class UserSessionTimeoutFilter implements Filter {
         this.redirectUrl = redirectUrl;
     }
 
-    private boolean isAjaxRequest(HttpServletRequest request) {
-        String requestWith = request.getHeader(Constants.AJAX_HTTP_HEADER);
-        return Constants.XML_HTTP_REQUEST.equalsIgnoreCase(requestWith);
-    }
-
-    private void sessionExpired(HttpServletResponse response) throws IOException {
-        String content = "{\"code\": 1000, \"message\": \"session_expired\"}";
+    protected void sessionExpired(HttpServletResponse response) throws IOException {
+        String content = "{\"code\": 10, \"message\": \"session_expired\"}";
         response.setContentType(Constants.CONTENT_TYPE_JSON);
         byte[] responseBytes = content.getBytes(Constants.CHARSET_UTF8);
         response.setContentLength(responseBytes.length);
         response.getOutputStream().write(responseBytes);
         response.flushBuffer();
     }
+
+    private boolean isAjaxRequest(HttpServletRequest request) {
+        String requestWith = request.getHeader(Constants.AJAX_HTTP_HEADER);
+        return Constants.XML_HTTP_REQUEST.equalsIgnoreCase(requestWith);
+    }
+
 }

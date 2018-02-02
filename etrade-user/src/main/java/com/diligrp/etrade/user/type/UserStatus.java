@@ -2,18 +2,13 @@ package com.diligrp.etrade.user.type;
 
 import com.diligrp.etrade.shared.type.IEnumType;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 /**
  * 用户职位
  *
  * @author: brenthuang
  * @date: 2017/12/28
  */
-public enum EmployeeStatus implements IEnumType {
+public enum UserStatus implements IEnumType {
 
     NORMAL("正常", 1),
 
@@ -24,7 +19,7 @@ public enum EmployeeStatus implements IEnumType {
     private String name;
     private int code;
 
-    EmployeeStatus(String name, int code) {
+    UserStatus(String name, int code) {
         this.name = name;
         this.code = code;
     }

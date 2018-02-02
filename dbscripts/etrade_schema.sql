@@ -25,14 +25,15 @@ CREATE TABLE `etrade_institution` (
   `parent_code` VARCHAR(20) COMMENT '上级编码',
   `description` VARCHAR(100) DEFAULT NULL,
   `created_time` DATETIME COMMENT '创建时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_institution_code` (`code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- 系统用户数据模型设计
 -- ----------------------------
-DROP TABLE IF EXISTS `etrade_employee`;
-CREATE TABLE `etrade_employee` (
+DROP TABLE IF EXISTS `etrade_user`;
+CREATE TABLE `etrade_user` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `account` VARCHAR(20) NOT NULL COMMENT '登陆账号',
   `name` VARCHAR(20) NOT NULL COMMENT '姓名',
@@ -42,31 +43,33 @@ CREATE TABLE `etrade_employee` (
   `email` VARCHAR(80) COMMENT '邮箱地址',
   `password` VARCHAR(50) NOT NULL COMMENT '登陆密码',
   `pwd_change` TINYINT UNSIGNED COMMENT '是否修改登陆密码',
+  `pwd_errors` TINYINT UNSIGNED NOT NULL COMMENT '密码错误次数',
   `login_time` DATETIME COMMENT '最近登陆时间',
   `role` TINYINT UNSIGNED NOT NULL COMMENT '用户角色-财务',
   `position` TINYINT UNSIGNED COMMENT '用户职位',
-  `login_token` VARCHAR(40) NULL COMMENT '登陆TokenID',
+  `access_token` VARCHAR(40) NULL COMMENT '登陆TokenID',
   `status` TINYINT UNSIGNED NOT NULL COMMENT '状态',
   `inst_code` VARCHAR(20) NOT NULL COMMENT '组织机构编码',
   `inst_name` VARCHAR(50) COMMENT '机构名称-保留字段',
   `description` VARCHAR(250) COMMENT '备注',
+  `version` INTEGER UNSIGNED NOT NULL COMMENT '数据版本号',
   `created_time` DATETIME COMMENT '创建时间',
   `modified_time` DATETIME COMMENT '修改时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_icard_employee_account` (`account`) USING BTREE
+  UNIQUE KEY `uk_icard_user_account` (`account`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- 用户-角色数据模型设计
 -- ----------------------------
-DROP TABLE IF EXISTS `etrade_employee_role`;
-CREATE TABLE `etrade_employee_role` (
+DROP TABLE IF EXISTS `etrade_user_role`;
+CREATE TABLE `etrade_user_role` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  `employee_id` BIGINT NOT NULL COMMENT '员工ID',
+  `user_id` BIGINT NOT NULL COMMENT '员工ID',
   `role_id` BIGINT NOT NULL COMMENT '角色ID',
   `created_time` DATETIME COMMENT '创建时间',
-  KEY `idx_employee_role_employeeId` (`employee_id`) USING BTREE,
-  KEY `idx_employee_role_roleId` (`role_id`) USING BTREE
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_user_role_userId` (`user_id`, `role_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -81,7 +84,8 @@ CREATE TABLE `etrade_role` (
   `inst_name` VARCHAR(50) COMMENT '机构名称-保留字段',
   `created_time` DATETIME COMMENT '创建时间',
   `modified_time` DATETIME COMMENT '修改时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_role_name` (`name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -111,7 +115,7 @@ CREATE TABLE `etrade_page_resource` (
   `level` TINYINT UNSIGNED NOT NULL COMMENT '级别',
   `parent_code` VARCHAR(20) COMMENT '上级资源编码',
   `sequence` TINYINT UNSIGNED COMMENT '资源顺序',
-  `description` VARCHAR(250) COMMENT '备注',
+  `description` VARCHAR(250) COMMENT '备注: 系统设置-用户管理',
   `created_time` DATETIME COMMENT '创建时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_page_resource_code` (`code`) USING BTREE
@@ -123,11 +127,13 @@ CREATE TABLE `etrade_page_resource` (
 DROP TABLE IF EXISTS `etrade_page_permission`;
 CREATE TABLE `etrade_page_permission` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  `code` VARCHAR(20) NOT NULL COMMENT '权限编码, 10-12',
+  `code` VARCHAR(20) NOT NULL COMMENT '权限编码, 10-12-8',
   `name` VARCHAR(20) NOT NULL COMMENT '权限名称',
-  `page_code` BIGINT COMMENT '所属页面编码',
-  `description` VARCHAR(250) COMMENT '备注',
+  `page_code` VARCHAR(20) NOT NULL COMMENT '所属页面编码',
+  `mask` SMALLINT UNSIGNED NOT NULL COMMENT '权限掩码, 取值范围1 <= 2^n <= 65535',
+  `description` VARCHAR(250) COMMENT '备注:用户管理-新增用户',
   `created_time` DATETIME COMMENT '创建时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_page_permission_code` (`code`) USING BTREE
+  UNIQUE KEY `uk_page_permission_code` (`code`) USING BTREE,
+  KEY `idx_page_permission_pageCode` (`page_code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

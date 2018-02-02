@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.diligrp.etrade.user.dao.IUserManageDao">
+
+    <resultMap id="UserMap" type="com.diligrp.etrade.user.domain.UserDo">
+        <id column="id" property="id"/>
+        <result column="account" property="account"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="mobile" property="mobile"/>
+        <result column="telphone" property="telphone"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="pwd_change" property="pwdChange"/>
+        <result column="pwd_errors" property="pwdErrors"/>
+        <result column="login_time" property="loginTime"/>
+        <result column="role" property="role"/>
+        <result column="position" property="position"/>
+        <result column="access_token" property="accessToken"/>
+        <result column="status" property="status"/>
+        <result column="inst_code" property="instCode"/>
+        <result column="inst_name" property="instName"/>
+        <result column="description" property="description"/>
+        <result column="version" property="version"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+    <select id="findUserByAccount" parameterType="string" resultMap="UserMap">
+        <![CDATA[
+            SELECT * FROM etrade_user WHERE account = #{account}
+        ]]>
+    </select>
+
+    <update id="updateUserStatus">
+            UPDATE etrade_user set status = #{status}, version = version + 1, modified_time = #{when}
+            WHERE account = #{account}
+            <if test="version != null">
+                AND version = #{version}
+            </if>
+    </update>
+
+    <update id="updateUserLogin">
+        <![CDATA[
+            UPDATE etrade_user set access_token = #{accessToken}, login_time = #{when}
+            WHERE account = #{account}
+        ]]>
+    </update>
+</mapper>

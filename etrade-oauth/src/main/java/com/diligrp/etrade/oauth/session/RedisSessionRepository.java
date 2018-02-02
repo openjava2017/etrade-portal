@@ -15,7 +15,7 @@ import redis.clients.jedis.Response;
 public class RedisSessionRepository implements ISessionRepository {
     private static Logger LOG = LoggerFactory.getLogger(RedisSessionRepository.class);
 
-    private static final String ICARD_JSESSION_PREFIX = "icard:web:jsession_id:";
+    private static final String ICARD_JSESSION_PREFIX = "etrade:oauth:accessToken:";
 
     /**
      * Session序列化工具类

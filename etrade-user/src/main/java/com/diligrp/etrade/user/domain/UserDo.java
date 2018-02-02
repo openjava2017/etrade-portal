@@ -2,19 +2,19 @@ package com.diligrp.etrade.user.domain;
 
 import com.diligrp.etrade.shared.domain.BaseDo;
 import com.diligrp.etrade.shared.type.Gender;
-import com.diligrp.etrade.user.type.EmployeeStatus;
+import com.diligrp.etrade.user.type.UserStatus;
 import com.diligrp.etrade.user.type.Position;
 import com.diligrp.etrade.user.type.Role;
 
 import java.util.Date;
 
 /**
- * 电子结算用户数据模型-etrade_employee
+ * 电子结算用户数据模型-etrade_user
  *
  * @author: brenthuang
  * @date: 2018/01/17
  */
-public class EmployeeDo extends BaseDo {
+public class UserDo extends BaseDo {
     /**
      * 登陆账号
      */
@@ -44,9 +44,13 @@ public class EmployeeDo extends BaseDo {
      */
     private String password;
     /**
-     * 修改登陆密码
+     * 是否强制修改登陆密码
      */
     private Boolean pwdChange;
+    /**
+     * 最大密码错误次数
+     */
+    private Integer pwdErrors;
     /**
      * 最近登陆时间
      */
@@ -62,11 +66,11 @@ public class EmployeeDo extends BaseDo {
     /**
      * 登陆TokenID
      */
-    private String loginToken;
+    private String accessToken;
     /**
      * 状态
      */
-    private EmployeeStatus status;
+    private UserStatus status;
     /**
      * 组织机构编码
      */
@@ -79,6 +83,10 @@ public class EmployeeDo extends BaseDo {
      * 备注
      */
     private String description;
+    /**
+     * 数据版本号
+     */
+    private Integer version;
 
     public String getAccount() {
         return account;
@@ -144,6 +152,14 @@ public class EmployeeDo extends BaseDo {
         this.pwdChange = pwdChange;
     }
 
+    public Integer getPwdErrors() {
+        return pwdErrors;
+    }
+
+    public void setPwdErrors(Integer pwdErrors) {
+        this.pwdErrors = pwdErrors;
+    }
+
     public Date getLoginTime() {
         return loginTime;
     }
@@ -168,19 +184,19 @@ public class EmployeeDo extends BaseDo {
         this.position = position;
     }
 
-    public String getLoginToken() {
-        return loginToken;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setLoginToken(String loginToken) {
-        this.loginToken = loginToken;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public EmployeeStatus getStatus() {
+    public UserStatus getStatus() {
         return status;
     }
 
-    public void setStatus(EmployeeStatus status) {
+    public void setStatus(UserStatus status) {
         this.status = status;
     }
 
@@ -206,5 +222,13 @@ public class EmployeeDo extends BaseDo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

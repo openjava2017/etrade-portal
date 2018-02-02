@@ -8,4 +8,10 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="com.diligrp.etrade.user"/>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.diligrp.etrade.user.dao"/>
+        <property name="markerInterface" value="com.diligrp.etrade.shared.mybatis.MybatisMapperSupport"/>
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
+    </bean>
 </beans>
