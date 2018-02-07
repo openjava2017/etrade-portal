@@ -2,11 +2,11 @@ package com.diligrp.etrade.user.domain;
 
 import com.diligrp.etrade.shared.domain.BaseDo;
 import com.diligrp.etrade.shared.type.Gender;
-import com.diligrp.etrade.user.type.UserStatus;
 import com.diligrp.etrade.user.type.Position;
 import com.diligrp.etrade.user.type.Role;
+import com.diligrp.etrade.user.type.UserStatus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 电子结算用户数据模型-etrade_user
@@ -54,7 +54,7 @@ public class UserDo extends BaseDo {
     /**
      * 最近登陆时间
      */
-    private Date loginTime;
+    private LocalDateTime loginTime;
     /**
      * 用户角色-财务
      */
@@ -160,11 +160,11 @@ public class UserDo extends BaseDo {
         this.pwdErrors = pwdErrors;
     }
 
-    public Date getLoginTime() {
+    public LocalDateTime getLoginTime() {
         return loginTime;
     }
 
-    public void setLoginTime(Date loginTime) {
+    public void setLoginTime(LocalDateTime loginTime) {
         this.loginTime = loginTime;
     }
 

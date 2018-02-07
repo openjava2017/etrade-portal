@@ -1,6 +1,6 @@
 package com.diligrp.etrade.shared.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 数据模型基础类
@@ -16,11 +16,11 @@ public class BaseDo {
     /**
      * 数据创建时间
      */
-    private Date createdTime;
+    private LocalDateTime createdTime;
     /**
      * 数据修改时间
      */
-    private Date modifiedTime;
+    private LocalDateTime modifiedTime;
 
     public Long getId() {
         return id;
@@ -30,19 +30,19 @@ public class BaseDo {
         this.id = id;
     }
 
-    public Date getCreatedTime() {
+    public LocalDateTime getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
+    public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
     }
 
-    public Date getModifiedTime() {
+    public LocalDateTime getModifiedTime() {
         return modifiedTime;
     }
 
-    public void setModifiedTime(Date modifiedTime) {
+    public void setModifiedTime(LocalDateTime modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
 }

@@ -2,7 +2,7 @@ package com.diligrp.etrade.user.domain;
 
 import com.diligrp.etrade.shared.domain.BaseDo;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 页面资源数据模型-etrade_page_resource
@@ -11,10 +11,6 @@ import java.util.Date;
  * @date: 2018/01/17
  */
 public class PageResourceDo extends BaseDo {
-    /**
-     * 页面资源主键
-     */
-    private Long id;
     /**
      * 页面资源编码
      */
@@ -47,20 +43,6 @@ public class PageResourceDo extends BaseDo {
      * 备注
      */
     private String description;
-    /**
-     * 创建时间
-     */
-    private Date createdTime;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;
@@ -124,15 +106,5 @@ public class PageResourceDo extends BaseDo {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    @Override
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
     }
 }
