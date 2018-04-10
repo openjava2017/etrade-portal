@@ -13,8 +13,6 @@ import java.security.Key;
  * @date: 2017/12/28
  */
 public class AesCipher {
-    private static final String CHARSET = "UTF-8";
-
     private static final String KEY_ALGORITHM = "AES";
 
     private static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";

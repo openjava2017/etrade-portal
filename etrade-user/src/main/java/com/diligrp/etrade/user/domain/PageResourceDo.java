@@ -2,8 +2,6 @@ package com.diligrp.etrade.user.domain;
 
 import com.diligrp.etrade.shared.domain.BaseDo;
 
-import java.time.LocalDateTime;
-
 /**
  * 页面资源数据模型-etrade_page_resource
  *

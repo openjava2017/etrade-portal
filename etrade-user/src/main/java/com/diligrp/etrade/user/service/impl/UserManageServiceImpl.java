@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,7 +30,7 @@ public class UserManageServiceImpl implements IUserManageService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean lockUser(String account, Date when, Integer version) {
+    public boolean lockUser(String account, LocalDateTime when, Integer version) {
         return userManageDao.updateUserStatus(account, UserStatus.LOCKED, when, version) > 0;
     }
 

@@ -29,23 +29,19 @@
     </resultMap>
 
     <select id="findUserByAccount" parameterType="string" resultMap="UserMap">
-        <![CDATA[
-            SELECT * FROM etrade_user WHERE account = #{account}
-        ]]>
+        SELECT * FROM etrade_user WHERE account = #{account}
     </select>
 
     <update id="updateUserStatus">
-            UPDATE etrade_user set status = #{status}, version = version + 1, modified_time = #{when}
-            WHERE account = #{account}
-            <if test="version != null">
-                AND version = #{version}
-            </if>
+        UPDATE etrade_user set status = #{status}, version = version + 1, modified_time = #{when}
+        WHERE account = #{account}
+        <if test="version != null">
+            AND version = #{version}
+        </if>
     </update>
 
     <update id="updateUserLogin">
-        <![CDATA[
-            UPDATE etrade_user set access_token = #{accessToken}, login_time = #{when}
-            WHERE account = #{account}
-        ]]>
+        UPDATE etrade_user set access_token = #{accessToken}, login_time = #{when}
+        WHERE account = #{account}
     </update>
 </mapper>

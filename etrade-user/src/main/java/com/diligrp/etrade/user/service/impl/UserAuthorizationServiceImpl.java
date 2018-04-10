@@ -22,7 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -64,7 +65,7 @@ public class UserAuthorizationServiceImpl implements IUserAuthorizationService {
 
         // 用户输入密码通过AES->SHA算法得到密码密文
         String encryptPwd = PasswordUtils.encrypt(password, secretKey);
-        String date = DateUtils.format(new Date(), DateUtils.YYYY_MM_DD);
+        String date = DateUtils.formatDate(LocalDate.now(), DateUtils.YYYY_MM_DD);
         // 用户当天密码错误次数Redis key
         String pwdErrorsKey = ETRADE_USER_PWDERRORS + account + "[" + date + "]";
         if (!ObjectUtils.equals(user.getPassword(), encryptPwd)) {
@@ -73,7 +74,7 @@ public class UserAuthorizationServiceImpl implements IUserAuthorizationService {
             // 超过用户密码最大错误次数则锁定用户
             if (errors.intValue() > user.getPwdErrors().intValue()) {
                 LOG.info("Exceed the user[{}] max password input error times", user.getAccount());
-                boolean locked = userManageService.lockUser(user.getAccount(), new Date(), user.getVersion());
+                boolean locked = userManageService.lockUser(user.getAccount(), LocalDateTime.now(), user.getVersion());
                 // 锁定之后清除密码错误次数
                 if (locked) {
                     redisSystemService.remove(pwdErrorsKey);
@@ -119,7 +120,7 @@ public class UserAuthorizationServiceImpl implements IUserAuthorizationService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void registerUserLogin(String account, String accessToken) {
-        userManageDao.updateUserLogin(account, accessToken, new Date());
+        userManageDao.updateUserLogin(account, accessToken, LocalDateTime.now());
     }
 
     @Override

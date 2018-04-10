@@ -3,7 +3,7 @@ package com.diligrp.etrade.user.type;
 import com.diligrp.etrade.shared.type.IEnumType;
 
 /**
- * 用户职位
+ * 用户状态
  *
  * @author: brenthuang
  * @date: 2017/12/28

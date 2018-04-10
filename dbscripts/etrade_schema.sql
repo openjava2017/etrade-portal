@@ -56,7 +56,7 @@ CREATE TABLE `etrade_user` (
   `created_time` DATETIME COMMENT '创建时间',
   `modified_time` DATETIME COMMENT '修改时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_icard_user_account` (`account`) USING BTREE
+  UNIQUE KEY `uk_user_account` (`account`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

@@ -9,14 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * Mybatis自定义TypeHandler实现枚举对象-数值转化
- * @see IEnumType
  *
  * @author: brenthuang
  * @date: 2017/12/28
+ * @see IEnumType
  */
 public class GenericEnumTypeHandler<E extends IEnumType> extends BaseTypeHandler<E> {
     private final E[] enums;
@@ -68,7 +67,6 @@ public class GenericEnumTypeHandler<E extends IEnumType> extends BaseTypeHandler
     }
 
     private E getEnumType(int code) {
-        Optional<E> result = Arrays.stream(enums).filter(item -> item.getCode() == code).findFirst();
-        return result.isPresent() ? result.get() : null;
+        return Arrays.stream(enums).filter(item -> item.getCode() == code).findFirst().orElse(null);
     }
 }

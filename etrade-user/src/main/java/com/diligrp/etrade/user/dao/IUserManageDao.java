@@ -6,7 +6,7 @@ import com.diligrp.etrade.user.type.UserStatus;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 系统用户数据库访问Dao
@@ -35,7 +35,7 @@ public interface IUserManageDao extends MybatisMapperSupport {
      * @return 0-失败 1-成功
      */
     int updateUserStatus(@Param("account") String account, @Param("status") UserStatus status,
-                         @Param("when") Date when, @Param("version") Integer version);
+                         @Param("when") LocalDateTime when, @Param("version") Integer version);
 
     /**
      * 更新用户登录信息
@@ -43,5 +43,6 @@ public interface IUserManageDao extends MybatisMapperSupport {
      * @param account - 用户账号
      * @param accessToken - accessToken
      */
-    void updateUserLogin(@Param("account") String account, @Param("accessToken") String accessToken, @Param("when") Date when);
+    void updateUserLogin(@Param("account") String account, @Param("accessToken") String accessToken,
+                         @Param("when") LocalDateTime when);
 }

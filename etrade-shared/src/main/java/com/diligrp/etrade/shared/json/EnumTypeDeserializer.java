@@ -8,7 +8,6 @@ import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 import com.diligrp.etrade.shared.type.IEnumType;
 
 import java.lang.reflect.Type;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -74,7 +73,6 @@ public class EnumTypeDeserializer<E extends IEnumType> implements ObjectDeserial
     }
 
     private E getEnumType(int code) {
-        Optional<E> result = enumStream.filter(el -> el.getCode() == code).findFirst();
-        return result.isPresent() ? result.get() : null;
+        return enumStream.filter(el -> el.getCode() == code).findFirst().orElse(null);
     }
 }
