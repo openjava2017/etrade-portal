@@ -24,7 +24,7 @@ public class WebPageBuilder {
     /**
      * 页面请求URL
      */
-    private String url;
+    private String route;
     /**
      * 页面资源路径
      */
@@ -49,8 +49,8 @@ public class WebPageBuilder {
         return this;
     }
 
-    public WebPageBuilder url(String url) {
-        this.url = url;
+    public WebPageBuilder route(String route) {
+        this.route = route;
         return this;
     }
 
@@ -69,7 +69,7 @@ public class WebPageBuilder {
         page.setCode(code);
         page.setName(name);
         page.setParentCode(parentCode);
-        page.setUrl(url);
+        page.setRoute(route);
         page.setPath(path);
         page.setPermissions(permissions);
         return page;

@@ -8,20 +8,20 @@ package com.diligrp.etrade.oauth.domain;
  */
 public class WebPage extends Resource {
     /**
-     * 页面请求URL
+     * 页面路由
      */
-    private String url;
+    private String route;
     /**
      * 页面资源路径
      */
     private String path;
 
-    public String getUrl() {
-        return url;
+    public String getRoute() {
+        return route;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     public String getPath() {

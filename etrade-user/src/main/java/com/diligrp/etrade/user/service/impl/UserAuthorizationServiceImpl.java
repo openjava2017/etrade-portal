@@ -109,7 +109,7 @@ public class UserAuthorizationServiceImpl implements IUserAuthorizationService {
                         .orElse(com.diligrp.etrade.oauth.domain.Resource.ALL_PERMISSIONS);
 
                 WebPageBuilder pageBuilder = new WebPageBuilder().code(page.getCode()).name(page.getName())
-                        .parentCode(page.getParentCode()).permissions(mask).url(page.getUrl()).path(page.getPath());
+                        .parentCode(page.getParentCode()).permissions(mask).route(page.getUrl()).path(page.getPath());
                 operatorBuilder.resource(pageBuilder.build());
             });
         }

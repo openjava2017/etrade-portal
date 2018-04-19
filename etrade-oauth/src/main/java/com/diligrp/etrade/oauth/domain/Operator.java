@@ -36,7 +36,7 @@ public class Operator {
     /**
      * 资源权限
      */
-    private List<Resource> resources;
+    private List<WebPage> resources;
     /**
      * 机构编码
      */
@@ -94,11 +94,11 @@ public class Operator {
         this.accessToken = accessToken;
     }
 
-    public List<Resource> getResources() {
+    public List<WebPage> getResources() {
         return resources;
     }
 
-    public void setResources(List<Resource> resources) {
+    public void setResources(List<WebPage> resources) {
         this.resources = resources;
     }
 
